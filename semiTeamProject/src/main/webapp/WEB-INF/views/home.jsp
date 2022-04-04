@@ -1,0 +1,161 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
+<html lang="en">
+<c:set var='url' value="<%=request.getContextPath() %>"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+      integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>Document</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
+
+      * {
+        box-sizing: border-box;
+        font-family: "Archivo Black", sans-serif;
+      }
+
+      html {
+        background: url(${url}/img/구름.gif) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+      }
+
+      #weather {
+        position: fixed;
+        display: flexbox;
+        align-items: center;
+        text-align: center;
+        width: 400px;
+        height: 400px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #4d4d4d;
+      }
+
+      #weather span:first-child {
+        display: block;
+        font-size: 50px;
+      }
+
+      #weather span:last-child {
+        display: inline-block;
+        font-size: 24px;
+      }
+
+      .nav-containor {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .navLogo-taxtDes {
+        margin: 0 auto;
+        margin-left: 15px;
+      }
+
+      .dropbtn {
+        background-color: transparent;
+        color: #4d4d4d;
+        padding: 16px;
+        font-size: 32px;
+        border: none;
+        cursor: pointer;
+      }
+      .dropdown {
+        position: relative;
+        display: inline-block;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        top: 55px;
+        right: 30px;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+      }
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
+      .dropdown:hover .dropbtn {
+        background-color: transparent;
+        transition: all 500ms 0s ease;
+        transform: scale(1.18);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="nav-containor">
+        <div class="nav-logo">
+          <h3 class="navLogo-taxt"><img src="" alt="" /></h3>
+        </div>
+        <div class="dropdown">
+          <button class="dropbtn">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
+      </div>
+
+      <div id="weather" class="rotate-center">
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <script>
+      const API_KEY = "f5c60c534d9d9d62379dd9a1123c1983";
+
+      function onGeoOk(position) {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        
+        const url = 'https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric';
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            const weather = document.querySelector("#weather span:first-child");
+            const city = document.querySelector("#weather span:last-child");
+            city.innerText = data.name;
+            weather.innerHTML = `${data.weather[0].main} / ${data.main.temp}`;
+          });
+      }
+      function onGeoError() {
+        alert("위치를 찾을 수 없습니다. ");
+      }
+
+      navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+    </script>
+  </body>
+</html>
