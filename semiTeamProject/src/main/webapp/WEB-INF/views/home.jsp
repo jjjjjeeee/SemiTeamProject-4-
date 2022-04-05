@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
+<!-- 서범석 주석추가 -->
 <c:set var='url' value="<%=request.getContextPath() %>"/>
   <head>
     <meta charset="UTF-8" />
