@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
-<html lang="en">
-<!-- 서범석 주석추가 -->
-<!-- 서범석 주석추가 -->
-<!-- 서범석 주석추가 -->
-<!-- 장현주 주석추가 -->
-<!-- 서범석 주석추가222222222 -->
 <c:set var='url' value="<%=request.getContextPath() %>"/>
+<!DOCTYPE html>
+<html>
+
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -25,6 +21,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Document</title>
     <style>
       @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap");
@@ -129,7 +126,7 @@
           <div class="dropdown-content">
             <a href="#">Link 1</a>
             <a href="#">Link 2</a>
-            <a href="#">Link 4</a>
+            <a href="#">링크3</a>
           </div>
         </div>
       </div>
@@ -140,20 +137,22 @@
       </div>
     </div>
     <script>
-      const API_KEY = "f5c60c534d9d9d62379dd9a1123c1983";
+      
 
       function onGeoOk(position) {
+    	const API_KEY = "f5c60c534d9d9d62379dd9a1123c1983";
         const lat = position.coords.latitude;
         const lon = position.coords.longitude;
+        const lang = "kr";
         
-        const url = 'https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric';
+        const url = "https://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&appid="+API_KEY+"&units=metric&lang=kr";
         fetch(url)
           .then((response) => response.json())
           .then((data) => {
             const weather = document.querySelector("#weather span:first-child");
             const city = document.querySelector("#weather span:last-child");
             city.innerText = data.name;
-            weather.innerHTML = `${data.weather[0].main} / ${data.main.temp}`;
+            weather.innerHTML = data.weather[0].main +'/'+ data.main.temp;
           });
       }
       function onGeoError() {
