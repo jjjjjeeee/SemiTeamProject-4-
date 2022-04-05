@@ -130,8 +130,8 @@
             <i class="fa-solid fa-bars"></i>
           </button>
           <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
+            <a href="#">링크1</a>
+            <a href="#">링크2</a>
             <a href="#">링크3</a>
           </div>
         </div>
