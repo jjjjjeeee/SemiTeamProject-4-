@@ -6,6 +6,7 @@
 <!-- 서범석 주석추가 -->
 <!-- 서범석 주석추가 -->
 <!-- 서범석 주석추가 -->
+<!-- 장현주 주석추가 -->
 <c:set var='url' value="<%=request.getContextPath() %>"/>
   <head>
     <meta charset="UTF-8" />
